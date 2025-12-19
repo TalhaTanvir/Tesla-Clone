@@ -1,7 +1,13 @@
-import React from "react";
+import {useState} from "react";
 import { CiCircleQuestion } from "react-icons/ci";
 import { AiOutlineGlobal } from "react-icons/ai";
 import { FaRegUserCircle } from "react-icons/fa";
+import ModelS from '../assets/Model S.avif';
+import Model3 from '../assets/Model 3.avif'; 
+import ModelY from '../assets/Model Y.avif'; 
+import ModelX from '../assets/Model X.avif'; 
+import Cybertruck from '../assets/Cybertruck.png'; 
+import Inventory from '../assets/Inventory.avif'; 
 
 
 const navLinks = [
@@ -13,15 +19,21 @@ const navLinks = [
 ]
 
 const vehicles = [
-  {name: "Model S" , img:""},
-  {name: "Model 3" , img:""},
-  {name: "Model Y" , img:""},
-  {name: "Model X" , img:""},
-  {name: "Cybertruck" , img:""},
-  {name: "Inventory" , img:""},
+  {name: "Model S" , img: ModelS , link:['Learn' , 'Order']},
+  {name: "Model 3" , img: Model3 , link:['Learn' , 'Order']},
+  {name: "Model Y" , img: ModelY , link:['Learn' , 'Order']},
+  {name: "Model X" , img: ModelX , link:['Learn' , 'Order']},
+  {name: "Cybertruck" , img: Cybertruck , link:['Learn' , 'Order']},
+  {name: "Inventory" , img: Inventory , link:['Learn' , 'Order']},
 ]
 
 function Navbar() {
+  const [menuOpen , setMenuOpen] = useState(false);
+  const [vehicleOpen , setVehicleOpen] = useState(false);
+  const [energyOpen , setEnergyOpen] = useState(false);
+  const [chargingOpen , setChargingOpen] = useState(false);
+  const [DiscoverOpen , setDiscoverOpen] = useState(false);
+  const [shopOpen , setShopOpen] = useState(false);
   return (
     <header className="fixed top-0 w-full z-50">
     <nav className="relative flex items-center justify-between px-16 py-4 font-semibold">
@@ -31,9 +43,12 @@ function Navbar() {
          </svg>
       </div>
 
-      <div className="flex items-center gap-6">
-        {navLinks.map((link)=>(
-          <div className="text-sm">
+      <div className="flex items-center gap-9"
+      onMouseEnter={() => setVehicleOpen(true)}
+      
+      >
+        {navLinks.map((link , idx)=>(
+          <div key={idx} className="text-sm">
             {link.name}
           </div>
         ))}
@@ -53,8 +68,20 @@ function Navbar() {
     </nav>
 
     {/* Vehicles Dropdown */}
-    {isVehicleOpen && (
-      <div>
+    {vehicleOpen && (
+      <div className="top-0 bg-white">
+        <div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+            {vehicles.map((vehicle , idx)=>(
+              <div key={idx}>
+                <div>
+                  <img src={vehicle.img} alt="" className="h-auto max-w-[220px]"/>
+                </div>
+
+              </div>
+            ))}
+          </div>
+        </div>
 
       </div>
     )}
